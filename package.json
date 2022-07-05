@@ -1,0 +1,39 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "^4.0.0",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1"
+  },
+  "description": "This application uses NodeJS as backend server to connect with our database and serve data to our web application. This backend would be an API for the online schedule website.",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukhasdeveloper/online-schedule-back.git"
+  },
+  "keywords": [
+    "nodejs",
+    "mongodb",
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lukhasdeveloper/online-schedule-back/issues"
+  },
+  "homepage": "https://github.com/lukhasdeveloper/online-schedule-back#readme",
+  "devDependencies": {
+    "@types/node": "^18.0.1",
+    "prisma": "^4.0.0",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
+  }
+}
