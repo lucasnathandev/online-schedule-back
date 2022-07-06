@@ -1,6 +1,4 @@
 import express from "express";
-import Schedule from "../../models/scheduleModel.js";
-import Admin from "../../models/adminModel.js";
 import bcrypt from "bcrypt";
 const api = express.Router();
 
