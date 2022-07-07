@@ -48,7 +48,7 @@ if (useCluster && cluster.isPrimary) {
 
   server.listen(port, () => {
     if (process.env.NODE_ENV == "production")
-      console.log(
+      return console.log(
         `Server running on http://${server.address().address}:${port}`
       );
     console.log(`Server running on http://localhost:${port}`);
