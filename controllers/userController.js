@@ -13,7 +13,7 @@ prisma
 import auth from "../middlewares/auth.js";
 
 const controller = {
-  users: async function (req, res, next) {
+  users: async (req, res) => {
     try {
       const users = await prisma.user.findMany({
         select: {
@@ -29,7 +29,7 @@ const controller = {
       return res.json({ error: error.message });
     }
   },
-  user: async function (req, res) {
+  user: async (req, res) => {
     try {
       const user = await prisma.user.findFirst({
         where: {
@@ -45,23 +45,23 @@ const controller = {
       return res.json({ error: error.message });
     }
   },
-  createUser: async function (req, res) {
+  createUser: async (req, res) => {
     try {
-      if (!req.body) return res.json("No data");
       const { name, password } = req.body;
-      if (req.body.role) {
-        const { role } = req.body;
-      }
+
+      const role = req.body.role;
+      console.log(req.body.role);
       const encrypted = await bcrypt.hash(password, 10);
       const user = await prisma.user.create({
         data: {
           name,
           password: encrypted,
-          role: role ? role : "USER",
+          role,
         },
       });
-      return res.json({ user });
+      return res.send("OK");
     } catch (error) {
+      console.log(error);
       return res.json({ error: error.message });
     }
   },

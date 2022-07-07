@@ -1,27 +1,16 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-const auth = async (req, res, next) => {
-  const user = await prisma.user.findFirst({
-    where: {
-      id: req.body.id,
-    },
-  });
+export default async (req, res, next) => {
   try {
-    const isValid = await bcrypt.compare(req.body.password, user.password);
-    const isAdmin = user.role === "ADMIN";
-    if (isValid) {
-      if (isAdmin) {
-        res.json({ isAdmin });
-        return next();
-      }
-      res.send({ isAuthenticated: true });
-      return next();
-    }
-  } catch {
-    return res.send({ isAuthenticated: false });
+    const token = req.headers.authorization.split(" ")[1];
+    const decode = jwt.verify(token, process.env.JWT_KEY);
+    req.user = decode;
+    next();
+  } catch (error) {
+    return res.send({ error: error.message });
   }
 };
-
-export default auth;

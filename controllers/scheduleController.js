@@ -15,13 +15,17 @@ const controller = {
       return res.json({ error: error.message });
     }
   },
+
   schedule: async (req, res) => {
     try {
       const schedule = await prisma.schedule.findFirst({
         where: {
-          name: req.params.name,
+          id: req.params.id,
         },
         select: {
+          name: true,
+          date: true,
+          time: true,
           id: false,
           createdAt: false,
           updatedAt: false,
@@ -32,6 +36,7 @@ const controller = {
       return res.json(error.message);
     }
   },
+
   createSchedule: async () => {
     try {
       const { name, date, time } = req.body;
@@ -47,26 +52,31 @@ const controller = {
       return res.json({ error: error.message });
     }
   },
+
   updateSchedule: async (req, res) => {
     const { name, date, time } = req.body;
     const data = { name, date, time };
     try {
-    } catch (error) {}
-    const schedule = await prisma.schedule.update({
-      where: {
-        id: req.body.id,
-      },
-      data,
-    });
-    res.json({ schedule });
+      const schedule = await prisma.schedule.update({
+        where: {
+          id: req.params.id,
+        },
+        data,
+      });
+      res.json({ schedule });
+    } catch (error) {
+      res.json({ error: error.message });
+    }
   },
+
   deleteSchedule: async (req, res) => {
     try {
-      await prisma.schedule.delete({
+      const deleted = await prisma.schedule.delete({
         where: {
-          id: req.body.id,
+          id: req.params.id,
         },
       });
+      res.json(deleted);
     } catch (error) {
       res.json({ error: error.message });
     }

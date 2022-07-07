@@ -16,7 +16,7 @@ model Schedule {
   updatedAt DateTime @updatedAt
 
   @@unique([name, date, time])
-  @@map("schedule")
+  @@map("schedules")
 }
 
 model User {
