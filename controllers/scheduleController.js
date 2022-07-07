@@ -40,14 +40,14 @@ const controller = {
   createSchedule: async () => {
     try {
       const { name, date, time } = req.body;
-      const schedule = await prisma.schedule.create({
+      await prisma.schedule.create({
         data: {
           name,
           date,
           time,
         },
       });
-      res.json({ schedule });
+      res.json({ created: true });
     } catch (error) {
       return res.json({ error: error.message });
     }

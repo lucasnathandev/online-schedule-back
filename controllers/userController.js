@@ -52,14 +52,14 @@ const controller = {
       const role = req.body.role;
       console.log(req.body.role);
       const encrypted = await bcrypt.hash(password, 10);
-      const user = await prisma.user.create({
+      await prisma.user.create({
         data: {
           name,
           password: encrypted,
           role,
         },
       });
-      return res.send("OK");
+      return res.send({ created: true });
     } catch (error) {
       console.log(error);
       return res.json({ error: error.message });
